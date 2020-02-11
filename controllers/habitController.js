@@ -24,7 +24,6 @@ async function updateHabit (req, res, next) {
     const habitResponse = await HabitDataServiceProvider.updateHabit(req.params.habit_id, req.body)
     const respData = {
       success: true,
-      habit_data: habitResponse,
       message: 'Successfully updated the habit'
     }
     return res.status(200).json(respData)
@@ -40,6 +39,20 @@ async function getAllHabits (req, res, next) {
       success: true,
       habit_data: habitResponse,
       message: 'Successfully fetched the habits'
+    }
+    return res.status(200).json(respData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+async function getSingleHabit (req, res, next) {
+  try {
+    const habitResponse = await HabitDataServiceProvider.getHabit(req.params.habit_id)
+    const respData = {
+      success: true,
+      habit_data: habitResponse,
+      message: 'Successfully fetched the habit'
     }
     return res.status(200).json(respData)
   } catch (error) {
@@ -86,4 +99,5 @@ export {
   getAllHabits,
   createHabitLog,
   getHabitLogOfADay,
+  getSingleHabit,
 }
