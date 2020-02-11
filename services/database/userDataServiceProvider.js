@@ -20,6 +20,10 @@ class UserDataServiceProvider {
     return UserModel.findOne({ username: username })
   }
 
+  async getUserByEmail(email) {
+    return UserModel.findOne({ email })
+  }
+
   async updateUserById(_id, userData) {
     return UserModel.updateOne({ _id }, { $set: userData }, { new: true })
   }

@@ -20,7 +20,9 @@ router.post('/login',
 
 router.post('/register', 
   [
-    validateRequest
+    validateRequest,
+    authMiddleware.isUserExistByUsername,
+    authMiddleware.isUserExistByEmail,
   ], 
   register,
 );
@@ -28,7 +30,7 @@ router.post('/register',
 router.get('/profile',
   [
     authMiddleware.checkAuthHeader,
-    authMiddleware.validateAccessToken
+    authMiddleware.validateAccessToken,
   ],
   profile,
 )

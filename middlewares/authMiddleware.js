@@ -113,13 +113,29 @@ exports.isAuthUserActive = (req, res, next) => {
   next()
 }
 
-exports.isUserExistById = async (req, res, next) => {
+exports.isUserExistByUsername = async (req, res, next) => {
   try {
-    const requestedUser = await userDataServiceProvider.getUserById(req.body.user_id)
-    if (!requestedUser) {
+    const requestedUser = await userDataServiceProvider.getUserByUsername(req.body.username)
+    if (requestedUser) {
       return res.status(422).json({
         success: false,
-        message: 'Invalid user details'
+        message: 'Username already exists'
+      })
+    }
+    req.requested_user_details = requestedUser
+    next()
+  } catch (error) {
+    next(error)
+  }
+}
+
+exports.isUserExistByEmail = async (req, res, next) => {
+  try {
+    const requestedUser = await userDataServiceProvider.getUserByEmail(req.body.email)
+    if (requestedUser) {
+      return res.status(422).json({
+        success: false,
+        message: 'Email already exists'
       })
     }
     req.requested_user_details = requestedUser
