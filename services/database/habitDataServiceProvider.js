@@ -8,7 +8,7 @@ class HabitServiceProvider {
 
   async updateHabit(habit_id, habitData) {
     return HabitModel.updateOne({
-      habit_id,
+      _id: habit_id,
     }, {
       $set: habitData,
     })
@@ -16,6 +16,10 @@ class HabitServiceProvider {
 
   async getAllHabits(user_id) {
     return HabitModel.find({ user_id })
+  }
+
+  async getHabit(habit_id) {
+    return HabitModel.find({ _id: habit_id })
   }
 
   /* need to change as per utc time */

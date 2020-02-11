@@ -6,6 +6,7 @@ import {
   getAllHabits,
   createHabitLog,
   getHabitLogOfADay,
+  getSingleHabit,
 } from './../controllers/habitController'
 import schemaValidator from "./../middlewares/validations/schemaValidator"
 import fileUploadMiddleware from './../middlewares/fileUploadMiddleware'
@@ -38,6 +39,14 @@ router.get('/habit',
     authMiddleware.validateAccessToken
   ],
   getAllHabits,
+)
+
+router.get('/habit/:habit_id',
+  [
+    authMiddleware.checkAuthHeader,
+    authMiddleware.validateAccessToken
+  ],
+  getSingleHabit,
 )
 
 router.post('/habit-log', 
